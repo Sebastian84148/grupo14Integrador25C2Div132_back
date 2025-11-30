@@ -66,7 +66,7 @@ app.get("/productos/:id", async (req, res) => {
 // POST /productos ==> Recibimos datos en req.body y creamos un nuevo producto en la base de datos.
 app.post("/productos", async (req, res) => {
     try {
-        const { nombre, precio, categoria, img_url } = req.body;
+        const {nombre, precio, categoria, img_url} = req.body;
         const sql = "INSERT INTO productos (nombre, precio, categoria, img_url) VALUES (?, ?, ?, ?)";
         const [rows] = await connection.query(sql, [nombre, precio, categoria, img_url]);
 
@@ -83,6 +83,25 @@ app.post("/productos", async (req, res) => {
     }
 });
 
+// PUT /productos ==> Recibimos datos en req.body y actualizamos el producto con el id correspondiente.
+app.put("/productos", async (req, res) => {
+    try {
+        const {id, nombre, precio, categoria, img_url, activo} = req.body;
+        const sql = "UPDATE productos SET nombre = ?, precio = ?, categoria = ?, img_url = ?, activo = ? WHERE id = ?";
+        const [rows] = await connection.query(sql, [nombre, precio, categoria, img_url, activo, id]);
+
+        res.status(200).json({
+            message: "Producto actualizado correctamente"
+        });
+
+    } catch (error) {
+        console.log("Error al actualizar producto:", error.message);
+
+        res.status(500).json({
+            message: "Error interno del servidor"
+        });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);

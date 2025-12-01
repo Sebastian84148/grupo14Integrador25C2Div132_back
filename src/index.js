@@ -38,7 +38,7 @@ app.get("/api/productos", async (req, res) => {
         console.log("Error obteniendo productos:", error.message);
 
         res.status(500).json({
-            message: "Error interno al obtener productos"
+            message: "Error interno del servidor al intentar obtener productos"
         });
     }
 });
@@ -64,7 +64,7 @@ app.get("/api/productos/:id", async (req, res) => {
         console.log("Error obteniendo el producto por id:", error.message);
 
         res.status(500).json({
-            message: "Error interno del servidor"
+            message: "Error interno del servidor al intentar obtener el producto por id"
         });
     }
 });
@@ -76,7 +76,7 @@ app.post("/api/productos", async (req, res) => {
 
         if(!nombre || !precio || !categoria || !img_url) {
             return res.status(400).json({
-                message: "Faltan campos por completar"
+                message: "Faltan campos obligatorios por completar"
             });
         }
 
@@ -90,26 +90,27 @@ app.post("/api/productos", async (req, res) => {
         }
 
         res.status(201).json({
-            message: "Producto creado con exito"
+            message: "Producto creado correctamente"
         });
 
     } catch (error) {
         console.log("Error al crear el producto", error.message);
 
         res.status(500).json({
-            message: "Error interno del servidor"
+            message: "Error interno del servidor al intentar crear el producto"
         });
     }
 });
 
-// PUT /api/productos ==> Recibimos datos en req.body y actualizamos el producto con el id correspondiente.
-app.put("/api/productos", async (req, res) => {
+// PUT /api/productos/:id ==> Recibimos datos en req.body y actualizamos el producto con el id de req.params.
+app.put("/api/productos/:id", async (req, res) => {
     try {
-        const {id, nombre, precio, categoria, img_url, activo} = req.body;
+        const {id} = req.params;
+        const {nombre, precio, categoria, img_url, activo} = req.body;
 
-        if(!id || !nombre || !precio || !categoria || !img_url || !activo) {
+        if(!id || !nombre || !precio || !categoria || !img_url || activo === undefined) {
             return res.status(400).json({
-                message: "Faltan campos por completar"
+                message: "Faltan campos obligatorios por completar"
             });
         }
 
@@ -118,7 +119,7 @@ app.put("/api/productos", async (req, res) => {
 
         if(rows.affectedRows === 0) {
             return res.status(404).json({
-                message: `No se pudo encontrar al producto con id ${id} para actualizarlo`
+                message: `No se pudo encontrar al producto con id ${id}`
             });
         }
 
@@ -127,10 +128,10 @@ app.put("/api/productos", async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Error al actualizar producto:", error.message);
+        console.log("Error al actualizar el producto:", error.message);
 
         res.status(500).json({
-            message: "Error interno del servidor"
+            message: "Error interno del servidor al intentar actualizar el producto"
         });
     }
 });
@@ -144,7 +145,7 @@ app.delete("/api/productos/:id", async (req, res) => {
 
         if(rows.affectedRows === 0) {
             return res.status(404).json({
-                message: `No se pudo encontrar al producto con id ${id} para eliminarlo`
+                message: `No se pudo encontrar al producto con id ${id}`
             });
         }
 
@@ -153,10 +154,10 @@ app.delete("/api/productos/:id", async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Error al eliminar un producto por su id: ", error.message);
+        console.log("Error al eliminar el producto: ", error.message);
 
         res.status(500).json({
-            message: "Error interno del servidor"
+            message: "Error interno del servidor al intentar eliminar el producto"
         });
     }
 });

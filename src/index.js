@@ -4,6 +4,9 @@ import environments from "./api/config/environments.js";
 import connection from "./api/database/db.js";
 import cors from "cors";
 
+//========Importaciones de middlewares==========
+import { loggerUrl, validateId } from "./api/middlewares/middlewares.js";
+
 
 const app = express();
 const PORT = environments.port;
@@ -12,10 +15,7 @@ const PORT = environments.port;
 //========Middlewares==========
 app.use(cors());
 
-app.use((req, res, next) => {
-    console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`);
-    next();
-});
+app.use(loggerUrl);
 
 app.use(express.json());
 
@@ -44,10 +44,10 @@ app.get("/api/productos", async (req, res) => {
 });
 
 // GET /api/productos/id ==> Enviamos el producto con el id correspondiente.
-app.get("/api/productos/:id", async (req, res) => {
+app.get("/api/productos/:id", validateId, async (req, res) => {
     try {
         const {id} = req.params;
-        const sql = "SELECT id, nombre, precio, categoria, img_url, activo FROM productos WHERE productos.id = ? LIMIT 1";
+        const sql = "SELECT id, nombre, precio, categoria, img_url, activo FROM productos WHERE id = ? LIMIT 1";
         const [rows] = await connection.query(sql, [id]);
 
         if(rows.length === 0) {
@@ -103,12 +103,12 @@ app.post("/api/productos", async (req, res) => {
 });
 
 // PUT /api/productos/:id ==> Recibimos datos en req.body y actualizamos el producto con el id de req.params.
-app.put("/api/productos/:id", async (req, res) => {
+app.put("/api/productos/:id", validateId, async (req, res) => {
     try {
         const {id} = req.params;
         const {nombre, precio, categoria, img_url, activo} = req.body;
 
-        if(!id || !nombre || !precio || !categoria || !img_url || activo === undefined) {
+        if(!nombre || !precio || !categoria || !img_url || activo === undefined) {
             return res.status(400).json({
                 message: "Faltan campos obligatorios por completar"
             });
@@ -137,7 +137,7 @@ app.put("/api/productos/:id", async (req, res) => {
 });
 
 // DELETE /api/productos/:id ==> Eliminamos el producto con el id correspondiente.
-app.delete("/api/productos/:id", async (req, res) => {
+app.delete("/api/productos/:id", validateId, async (req, res) => {
     try {
         const {id} = req.params;
         const sql = "DELETE FROM productos WHERE id = ?";

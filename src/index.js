@@ -24,10 +24,10 @@ app.get("/", (req, res) => {
     res.send("Tecno Store");
 });
 
-// GET /productos ==>  Enviamos todos los productos.
-app.get("/productos", async (req, res) => {
+// GET /api/productos ==>  Enviamos todos los productos.
+app.get("/api/productos", async (req, res) => {
     try {
-        const sql = "SELECT * FROM productos";
+        const sql = "SELECT id, nombre, precio, categoria, img_url, activo FROM productos";
         const [rows] = await connection.query(sql);
         
         res.status(200).json({
@@ -43,15 +43,21 @@ app.get("/productos", async (req, res) => {
     }
 });
 
-// GET /productos/id ==> Enviamos el producto con el id correspondiente.
-app.get("/productos/:id", async (req, res) => {
+// GET /api/productos/id ==> Enviamos el producto con el id correspondiente.
+app.get("/api/productos/:id", async (req, res) => {
     try {
         const {id} = req.params;
-        const sql = "SELECT * FROM productos WHERE productos.id = ?";
+        const sql = "SELECT id, nombre, precio, categoria, img_url, activo FROM productos WHERE productos.id = ? LIMIT 1";
         const [rows] = await connection.query(sql, [id]);
 
+        if(rows.length === 0) {
+            return res.status(404).json({
+                message: `No existe el producto con el id ${id}`
+            });
+        }
+
         res.status(200).json({
-            payload: rows
+            payload: rows[0]
         });
 
     } catch (error) {
@@ -63,12 +69,25 @@ app.get("/productos/:id", async (req, res) => {
     }
 });
 
-// POST /productos ==> Recibimos datos en req.body y creamos un nuevo producto en la base de datos.
-app.post("/productos", async (req, res) => {
+// POST /api/productos ==> Recibimos datos en req.body y creamos un nuevo producto en la base de datos.
+app.post("/api/productos", async (req, res) => {
     try {
         const {nombre, precio, categoria, img_url} = req.body;
+
+        if(!nombre || !precio || !categoria || !img_url) {
+            return res.status(400).json({
+                message: "Faltan campos por completar"
+            });
+        }
+
         const sql = "INSERT INTO productos (nombre, precio, categoria, img_url) VALUES (?, ?, ?, ?)";
         const [rows] = await connection.query(sql, [nombre, precio, categoria, img_url]);
+
+        if(rows.affectedRows === 0) {
+            return res.status(400).json({
+                message: "No se pudo crear el producto"
+            });
+        }
 
         res.status(201).json({
             message: "Producto creado con exito"
@@ -83,12 +102,25 @@ app.post("/productos", async (req, res) => {
     }
 });
 
-// PUT /productos ==> Recibimos datos en req.body y actualizamos el producto con el id correspondiente.
-app.put("/productos", async (req, res) => {
+// PUT /api/productos ==> Recibimos datos en req.body y actualizamos el producto con el id correspondiente.
+app.put("/api/productos", async (req, res) => {
     try {
         const {id, nombre, precio, categoria, img_url, activo} = req.body;
+
+        if(!id || !nombre || !precio || !categoria || !img_url || !activo) {
+            return res.status(400).json({
+                message: "Faltan campos por completar"
+            });
+        }
+
         const sql = "UPDATE productos SET nombre = ?, precio = ?, categoria = ?, img_url = ?, activo = ? WHERE id = ?";
         const [rows] = await connection.query(sql, [nombre, precio, categoria, img_url, activo, id]);
+
+        if(rows.affectedRows === 0) {
+            return res.status(404).json({
+                message: `No se pudo encontrar al producto con id ${id} para actualizarlo`
+            });
+        }
 
         res.status(200).json({
             message: "Producto actualizado correctamente"
@@ -103,14 +135,20 @@ app.put("/productos", async (req, res) => {
     }
 });
 
-// DELETE /productos/:id ==> Eliminamos el producto con el id correspondiente.
-app.delete("/productos/:id", async (req, res) => {
+// DELETE /api/productos/:id ==> Eliminamos el producto con el id correspondiente.
+app.delete("/api/productos/:id", async (req, res) => {
     try {
         const {id} = req.params;
         const sql = "DELETE FROM productos WHERE id = ?";
         const [rows] = await connection.query(sql, [id]);
 
-        return res.status(200).json({
+        if(rows.affectedRows === 0) {
+            return res.status(404).json({
+                message: `No se pudo encontrar al producto con id ${id} para eliminarlo`
+            });
+        }
+
+        res.status(200).json({
             message: "Producto eliminado correctamente"
         });
 

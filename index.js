@@ -6,7 +6,7 @@ import cors from "cors";
 
 //========Importaciones de middlewares==========
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
-import { rutasProducto } from "./src/api/routes/index.js"; //Importacion de router
+import { rutasViews, rutasProducto } from "./src/api/routes/index.js"; //Importacion de router
 
 //Importamos la configuracion para poder trabajar con rutas y archivos estaticos
 import {__dirname, join} from "./src/api/utils/index.js";
@@ -30,35 +30,12 @@ app.set("view engine", "ejs"); //Configuramos EJS como motor de vistas
 app.set("views", join(__dirname, "src", "views")); //Indicamos la ruta donde se encuentran las vistas EJS
 
 
-//========Endpoint Bienvenida==========
-app.get("/", (req, res) => {
-    res.send("Tecno Store");
-});
-
-
-//========Vistas==========
-app.get("/index", (req, res) => {
-    res.render("index");
-});
-
-app.get("/consultar", (req, res) => {
-    res.render("consultar");
-});
-
-app.get("/crear", (req, res) => {
-    res.render("crear");
-});
-
-app.get("/modificar", (req, res) => {
-    res.render("modificar");
-});
-
-app.get("/eliminar", (req, res) => {
-    res.render("eliminar");
-});
-
 // Conexion del Router rutasProducto a la URL /api/productos
 app.use("/api/productos", rutasProducto);
+
+
+// Conexion del Router rutasMain a la URL /api/productos
+app.use("/", rutasViews)
 
 
 app.listen(PORT, () => {

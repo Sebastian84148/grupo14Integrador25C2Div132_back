@@ -6,7 +6,7 @@ import cors from "cors";
 
 //========Importaciones de middlewares==========
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
-import { rutasViews, rutasProducto } from "./src/api/routes/index.js"; //Importacion de router
+import { rutasVistas, rutasProducto } from "./src/api/routes/index.js"; //Importacion de router
 
 //Importamos la configuracion para poder trabajar con rutas y archivos estaticos
 import {__dirname, join} from "./src/api/utils/index.js";
@@ -34,8 +34,8 @@ app.set("views", join(__dirname, "src", "views")); //Indicamos la ruta donde se 
 app.use("/api/productos", rutasProducto);
 
 
-// Conexion del Router rutasMain a la URL /api/productos
-app.use("/", rutasViews)
+// Conexion del Router rutasVistas a la URL /api/productos
+app.use("/", rutasVistas);
 
 
 app.listen(PORT, () => {

@@ -2,10 +2,19 @@
 <%- include("partials/nav.ejs") %>
 
 <main>
-    <h1>Lista de productos</h1>
+    <h1> <%= about %> </h1>
     <hr>
-    <div id="contenedor-productos"></div>
+    <div id="contenedor-productos">
+        <% products.forEach(prod => { %>
+            <div class="card-producto">
+                <img src="<%= prod.img_url %>" alt="<%= prod.nombre %>">
+                <h5><%= prod.nombre %></h5>
+                <p><%= prod.id %></p>
+                <p><%= prod.categoria %></p>
+                <p>$ <%= prod.precio %></p>
+            </div>
+        <% }) %>
+    </div>
 </main>
-<script src="js/index.js"></script>
 
 <%- include("partials/footer.ejs") %>

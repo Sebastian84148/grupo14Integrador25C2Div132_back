@@ -19,7 +19,16 @@ const validateId = (req, res, next) => {
     next();
 }
 
+const requireLogin = (req, res, next) => {
+    if(!req.session.user) {
+        return res.redirect("/login");
+    }
+
+    next();
+}
+
 export {
     loggerUrl,
-    validateId
+    validateId,
+    requireLogin
 }

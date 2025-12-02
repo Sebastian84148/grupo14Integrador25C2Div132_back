@@ -6,47 +6,47 @@ export const getIndex =  async (req, res) => {
         const [rows] = await selectAllProducts();
 
         res.render("index", {
-            tittle: "Indice",
+            title: "Indice",
             about: "Lista de productos",
             products: rows
         });
 
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }
 
 export const getConsultar = async (req, res) => {
     res.render("consultar", {
-        tittle: "Consultar",
+        title: "Consultar",
         about: "Consultar producto por id",
     });
 }
 
 export const getCrear = (req, res) => {
     res.render("crear", {
-        tittle: "Crear",
+        title: "Crear",
         about: "Crear producto",
     });
 }
 
 export const getModificar = (req, res) => {
     res.render("modificar", {
-        tittle: "Modificar",
+        title: "Modificar",
         about: "Actualizar producto",
     });
 }
 
 export const getEliminar = (req, res) => {
     res.render("eliminar", {
-        tittle: "Eliminar",
+        title: "Eliminar",
         about: "Eliminar producto",
     });
 }
 
 export const getLogin = (req, res) => {
     res.render("login", {
-        tittle: "Login",
+        title: "Login",
         about: "Login-dashboard"
     });
 }

@@ -3,20 +3,24 @@ import { Router } from "express";
 const router = Router();
 
 
+//========Importacion de middlewares==========
+import { requireLogin } from "../middlewares/middlewares.js";
+
+
 //========Importacion de controladores de main==========
 import { getConsultar, getCrear, getEliminar, getIndex, getLogin, getModificar } from "../controllers/views.controllers.js";
 
 
 //========Vistas==========
-router.get("/", getIndex);
+router.get("/", requireLogin, getIndex);
 
-router.get("/consultar", getConsultar);
+router.get("/consultar", requireLogin, getConsultar);
 
-router.get("/crear", getCrear);
+router.get("/crear", requireLogin, getCrear);
 
-router.get("/modificar", getModificar);
+router.get("/modificar", requireLogin, getModificar);
 
-router.get("/eliminar", getEliminar);
+router.get("/eliminar", requireLogin, getEliminar);
 
 router.get("/login", getLogin);
 

@@ -6,10 +6,18 @@ body {
 }
 header {
     margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav {
+    width: 75%;
 }
 
 ul {
     padding-left: 0;
+    margin-bottom: 0;
 }
 
 li {

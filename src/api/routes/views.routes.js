@@ -4,7 +4,7 @@ const router = Router();
 
 
 //========Importacion de controladores de main==========
-import { getConsultar, getCrear, getEliminar, getIndex, getModificar } from "../controllers/views.controllers.js";
+import { getConsultar, getCrear, getEliminar, getIndex, getLogin, getModificar } from "../controllers/views.controllers.js";
 
 
 //========Vistas==========
@@ -17,5 +17,7 @@ router.get("/crear", getCrear);
 router.get("/modificar", getModificar);
 
 router.get("/eliminar", getEliminar);
+
+router.get("/login", getLogin);
 
 export default router;

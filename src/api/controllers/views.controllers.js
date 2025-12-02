@@ -43,3 +43,10 @@ export const getEliminar = (req, res) => {
         about: "Eliminar producto",
     });
 }
+
+export const getLogin = (req, res) => {
+    res.render("login", {
+        tittle: "Login",
+        about: "Login-dashboard"
+    });
+}

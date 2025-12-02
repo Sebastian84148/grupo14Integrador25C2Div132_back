@@ -7,6 +7,7 @@ import cors from "cors";
 //========Importaciones de middlewares==========
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { rutasVistas, rutasProducto } from "./src/api/routes/index.js"; //Importacion de router
+import session from "express-session";
 
 //Importamos la configuracion para poder trabajar con rutas y archivos estaticos
 import {__dirname, join} from "./src/api/utils/index.js";
@@ -14,12 +15,19 @@ import {__dirname, join} from "./src/api/utils/index.js";
 
 const app = express();
 const PORT = environments.port;
+const SESSION_KEY = environments.session_key;
 
 
 //========Middlewares de aplicacion==========
 app.use(cors());
 app.use(loggerUrl);
 app.use(express.json());
+app.use(session({
+    secret: SESSION_KEY,
+    resave: false,
+    saveUninitialized: true
+}));
+app.use(express.urlencoded({ extended: true}));
 
 
 app.use(express.static(join(__dirname, "src", "public")));

@@ -1,12 +1,15 @@
 //========Importaciones==========
 import express from "express";
-import environments from "./api/config/environments.js";
+import environments from "./src/api/config/environments.js";
 import cors from "cors";
 
 
 //========Importaciones de middlewares==========
-import { loggerUrl } from "./api/middlewares/middlewares.js";
-import { rutasProducto } from "./api/routes/index.js"; //Importacion de router
+import { loggerUrl } from "./src/api/middlewares/middlewares.js";
+import { rutasProducto } from "./src/api/routes/index.js"; //Importacion de router
+
+//Importamos la configuracion para poder trabajar con rutas y archivos estaticos
+import {__dirname, join} from "./src/api/utils/index.js";
 
 
 const app = express();
@@ -17,6 +20,9 @@ const PORT = environments.port;
 app.use(cors());
 app.use(loggerUrl);
 app.use(express.json());
+
+
+app.use(express.static(join(__dirname, "src", "public")));
 
 
 //========Endpoint Bienvenida==========

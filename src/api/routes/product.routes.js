@@ -8,10 +8,14 @@ import { validateId } from "../middlewares/middlewares.js";
 
 
 //========Importacion de controladores de producto==========
-import { createProduct, getAllProducts, getProductById, modifyProduct, removeProduct } from "../controllers/product.controllers.js";
+import { createProduct, getActiveProducts, getAllProducts, getProductById, modifyProduct, removeProduct } from "../controllers/product.controllers.js";
 
 
-//==============Definicion de rutas==============
+//==============Rutas producto front==============
+router.get("/activos", getActiveProducts);
+
+
+//==============Rutas producto back==============
 // GET /api/productos ==>  Enviamos todos los productos.
 router.get("/", getAllProducts);
 

@@ -1,8 +1,27 @@
 //=============Importacion de modelos de producto==============
-import { deleteProduct, insertProduct, selectAllProducts, selectProductById, updateProduct } from "../models/product.models.js";
+import { deleteProduct, insertProduct, selectActiveProducts, selectAllProducts, selectProductById, updateProduct } from "../models/product.models.js";
 
 
-//=============Controladores de producto==============
+//=============Controladores de producto front==============
+export const getActiveProducts = async (req, res) => {
+    try {
+        const [rows] = await selectActiveProducts();
+
+        res.status(200).json({
+            payload: rows
+        });
+
+    } catch (error) {
+        console.error("Error obteniendo productos activos", error.message);
+
+        res.status(500).json({
+            message: "Lo sentimos, hubo un error al cargar el catalogo de productos."
+        });
+    }
+}
+
+
+//=============Controladores de producto back==============
 //Controlador para obtener todos los productos
 export const getAllProducts = async (req, res) => {
     try {
@@ -13,7 +32,7 @@ export const getAllProducts = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Error obteniendo productos:", error.message);
+        console.error("Error obteniendo productos:", error.message);
 
         res.status(500).json({
             message: "Error interno del servidor al intentar obtener productos"
@@ -39,7 +58,7 @@ export const getProductById = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Error obteniendo el producto por id:", error.message);
+        console.error("Error obteniendo el producto por id:", error.message);
 
         res.status(500).json({
             message: "Error interno del servidor al intentar obtener el producto por id"
@@ -71,7 +90,7 @@ export const createProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Error al crear el producto", error.message);
+        console.error("Error al crear el producto", error.message);
 
         res.status(500).json({
             message: "Error interno del servidor al intentar crear el producto"
@@ -104,7 +123,7 @@ export const modifyProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Error al actualizar el producto:", error.message);
+        console.error("Error al actualizar el producto:", error.message);
 
         res.status(500).json({
             message: "Error interno del servidor al intentar actualizar el producto"
@@ -130,7 +149,7 @@ export const removeProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Error al eliminar el producto: ", error.message);
+        console.error("Error al eliminar el producto: ", error.message);
 
         res.status(500).json({
             message: "Error interno del servidor al intentar eliminar el producto"

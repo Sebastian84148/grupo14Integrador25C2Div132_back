@@ -2,7 +2,15 @@
 import connection from "../database/db.js";
 
 
-//=============Modelos de producto==============
+//=============Modelos de producto front==============
+export const selectActiveProducts = () => {
+    const sql = "SELECT id, nombre, precio, categoria, img_url, activo FROM productos WHERE activo = 1";
+
+    return connection.query(sql);
+}
+
+
+//=============Modelos de producto back==============
 //Le pedimos a la conexion a la BBDD que traiga todos los productos
 export const selectAllProducts = () => {
     const sql = "SELECT id, nombre, precio, categoria, img_url, activo FROM productos";

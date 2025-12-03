@@ -6,7 +6,7 @@ import cors from "cors";
 
 //========Importaciones de middlewares==========
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
-import { rutasVistas, rutasProducto, rutasAutenticacion, rutasVentas } from "./src/api/routes/index.js"; //Importacion de router
+import { rutasVistas, rutasProducto, rutasAutenticacion, rutasVentas, rutasUsuario } from "./src/api/routes/index.js"; //Importacion de router
 import session from "express-session";
 
 //Importamos la configuracion para poder trabajar con rutas y archivos estaticos
@@ -48,7 +48,12 @@ app.use("/", rutasVistas);
 app.use("/auth", rutasAutenticacion);
 
 
+// Conexion del Router rutasVentas a la URL con el prefijo /api/ventas
 app.use("/api/ventas", rutasVentas);
+
+
+// Conexion del Router rutasVentas a la URL con el prefijo /api/ventas
+app.use("/api/users", rutasUsuario);
 
 
 app.listen(PORT, () => {

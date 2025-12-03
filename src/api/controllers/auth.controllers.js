@@ -1,5 +1,9 @@
 //=============Importacion de modelos de autenticacion==============
-import { selectUserByCredentials } from "../models/auth.models.js";
+import { selectUserByEmail } from "../models/auth.models.js";
+
+
+//=============Importacion de funciones de bcrypt==============
+import { comparePassword } from "../utils/bcrypt.js";
 
 
 //=============Controladores de autenticacion==============
@@ -15,7 +19,7 @@ export const postLogin = async (req, res) => {
             });
         }
 
-        const [rows] = await selectUserByCredentials(correo, contrasenia);
+        const [rows] = await selectUserByEmail(correo);
 
         if(rows.length === 0) {
             return res.render("login", {
@@ -27,7 +31,19 @@ export const postLogin = async (req, res) => {
 
         const user = rows[0];
 
+        const match = await comparePassword(contrasenia, user.contrasenia);
+
+        if(!match) {
+            return res.render("login", {
+                title: "Login",
+                about: "Login-dashboard",
+                error: "Credenciales invalidas"
+            });
+        }
+
         req.session.user = {
+            id: user.id,
+            nombre: user.nombre,
             correo: user.correo
         }
 
@@ -35,6 +51,10 @@ export const postLogin = async (req, res) => {
 
     } catch (error) {
         console.error("Error en el login ", error)
+
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
     }
 }
 

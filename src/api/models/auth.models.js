@@ -3,8 +3,8 @@ import connection from "../database/db.js";
 
 
 //=============Modelos de autenticacion==============
-export const selectUserByCredentials = (correo, contrasenia) => {
-    const sql = "SELECT correo, contrasenia FROM usuarios WHERE correo = ? AND contrasenia = ?";
+export const selectUserByEmail = (correo) => {
+    const sql = "SELECT id, nombre, correo, contrasenia FROM usuarios WHERE correo = ?";
 
-    return connection.query(sql, [correo, contrasenia]);
+    return connection.query(sql, [correo]);
 }

@@ -1,6 +1,7 @@
-import { selectAllProducts, selectProductById } from "../models/product.models.js";
+import { selectAllProducts } from "../models/product.models.js";
 
-//=============Controladores de main==============
+
+//=============Controladores de vistas==============
 export const getIndex =  async (req, res) => {
     try {
         const [rows] = await selectAllProducts();

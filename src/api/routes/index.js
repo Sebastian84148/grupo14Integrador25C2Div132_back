@@ -3,11 +3,13 @@ import rutasProducto from "./product.routes.js";
 import rutasVistas from "./views.routes.js"
 import rutasAutenticacion from "./auth.routes.js";
 import rutasVentas from "./sales.routes.js"
+import rutasUsuario from "./user.routes.js";
 
 
 export {
     rutasProducto,
     rutasVistas,
     rutasAutenticacion,
-    rutasVentas
+    rutasVentas,
+    rutasUsuario
 };

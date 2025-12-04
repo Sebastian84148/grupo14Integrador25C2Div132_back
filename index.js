@@ -9,6 +9,7 @@ import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { rutasVistas, rutasProducto, rutasAutenticacion, rutasVentas, rutasUsuario } from "./src/api/routes/index.js"; //Importacion de router
 import session from "express-session";
 
+
 //Importamos la configuracion para poder trabajar con rutas y archivos estaticos
 import {__dirname, join} from "./src/api/utils/index.js";
 

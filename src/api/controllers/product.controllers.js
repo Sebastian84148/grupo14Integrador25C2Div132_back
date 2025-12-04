@@ -69,13 +69,16 @@ export const getProductById = async (req, res) => {
 //Controlador para crear un producto
 export const createProduct = async (req, res) => {
     try {
-        const { nombre, precio, categoria, img_url } = req.body;
+        const { nombre, precio, categoria } = req.body;
+        const img = req.file;
 
-        if(!nombre || !precio || !categoria || !img_url) {
+        if(!nombre || !precio || !categoria || !img) {
             return res.status(400).json({
                 message: "Faltan campos obligatorios por completar"
             });
         }
+
+        const img_url = req.file.filename;
 
         const [rows] = await insertProduct(nombre, precio, categoria, img_url);
 
@@ -102,13 +105,17 @@ export const createProduct = async (req, res) => {
 export const modifyProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, precio, categoria, img_url, activo } = req.body;
+        const { nombre, precio, categoria, activo } = req.body;
+        const img = req.file;
 
-        if(!nombre || !precio || !categoria || !img_url || activo === undefined) {
+
+        if(!nombre || !precio || !categoria || !img || activo === undefined) {
             return res.status(400).json({
                 message: "Faltan campos obligatorios por completar"
             });
         }
+
+        const img_url = req.file.filename;
 
         const [rows] = await updateProduct(nombre, precio, categoria, img_url, activo, id);
 

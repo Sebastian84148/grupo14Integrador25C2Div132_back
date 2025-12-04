@@ -34,7 +34,7 @@ async function obtenerProductoPorId(id) {
 function mostrarProducto(producto) {
     let htmlProducto = `
         <li class="li-listados">
-            <img src="${producto.img_url}" alt="${producto.nombre}">
+            <img src="/img/${producto.img_url}" alt="${producto.nombre}">
             <p>Id: ${producto.id} | Nombre: ${producto.nombre} | <strong>Precio: $${producto.precio}</strong><p>
         </li>
         <li class="li-botonera">

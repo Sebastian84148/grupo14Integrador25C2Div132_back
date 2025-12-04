@@ -118,3 +118,31 @@ nav ul {
     border-radius: 4px;
     font-size: 16px;
 }
+
+/*================
+    Imagenes
+================*/
+.drop-zone {
+        display: block;
+        background-color: #ffffff;
+        border: 2px dashed #94a3b8;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .drop-zone:hover, .drop-zone.dragover {
+        border-color: #2563eb;
+        background-color: #f6fbff;
+    }
+    .drop-text span {
+        color: #2563eb;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+    /* Ocultamos el input real para usar el estilo personalizado */
+    #fileInput {
+        display: none; 
+    }

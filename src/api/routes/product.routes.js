@@ -5,6 +5,7 @@ const router = Router();
 
 //========Importacion de middlewares==========
 import { validateId } from "../middlewares/middlewares.js";
+import { handleMulterError, multerUploader } from "../middlewares/multer-middleware.js"
 
 
 //========Importacion de controladores de producto==========
@@ -23,10 +24,10 @@ router.get("/", getAllProducts);
 router.get("/:id", validateId, getProductById);
 
 // POST /api/productos ==> Recibimos datos en req.body y creamos un nuevo producto en la base de datos.
-router.post("/", createProduct);
+router.post("/", multerUploader.single("imagen"), handleMulterError, createProduct);
 
 // PUT /api/productos/:id ==> Recibimos datos en req.body y actualizamos el producto con el id de req.params.
-router.put("/:id", validateId, modifyProduct);
+router.put("/:id", validateId, multerUploader.single("imagen"), handleMulterError, modifyProduct);
 
 // DELETE /api/productos/:id ==> Eliminamos el producto con el id correspondiente.
 router.delete("/:id", validateId, removeProduct);

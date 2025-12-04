@@ -7,7 +7,7 @@
     <div id="contenedor-productos">
         <% products.forEach(prod => { %>
             <div class="card-producto">
-                <img src="<%= prod.img_url %>" alt="<%= prod.nombre %>">
+                <img src="/img/<%= prod.img_url %>" alt="<%= prod.nombre %>">
                 <h5><%= prod.nombre %></h5>
                 <p><%= prod.id %></p>
                 <p><%= prod.categoria %></p>

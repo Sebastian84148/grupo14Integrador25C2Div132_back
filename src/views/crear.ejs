@@ -17,8 +17,17 @@
             <option value="NOTEBOOK">Notebook</option>
         </select>
         
-        <label for="imagenProd">Imagen</label>
-        <input type="text" name="img_url" id="imagenProd" required>
+        <label>Imagen del Producto</label>
+
+        <label id="dropArea" class="drop-zone">
+            <p class="drop-text">Arrastra la imagen aquí o <span>explora</span></p>
+            <input type="file" id="fileInput" name="imagen" accept="image/*">
+        </label>
+
+        <div id="previewContainer" style="display:none; margin-top:10px;">
+            <p id="fileName">Archivo seleccionado</p>
+            <img id="imgPreview" src="" style="max-width: 150px; border-radius: 5px;">
+        </div>
         
         <input type="submit" value="Crear Producto">
     </form>

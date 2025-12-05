@@ -1,32 +1,38 @@
 <%- include("partials/head.ejs") %>
 
-<h1> <%= about %> </h1>
+<main>
 
-<% if (typeof error !== "undefined") { %>
-    <div class="error-message">
-        <%= error %>
-    </div>
-<% } %>
+        <h1> <%= about %> </h1>
 
-<form id="login-form" action="/auth/login" method="POST" autocomplete="off">
+        <% if (typeof error !== "undefined") { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+        <% } %>
 
-    <label for="emailUser">Email</label>
-    <input type="email" name="correo" id="emailUser" required>
+        <form id="login-form" action="/auth/login" method="POST" autocomplete="off">
 
-    <label for="passwordUser">Password</label>
-    <input type="password" name="contrasenia" id="passwordUser" required>
+            <label for="emailUser">Correo</label>
+            <input type="email" name="correo" id="emailUser" required>
 
-    <input type="submit" class="input-button input-submit btn-login" value="Login">
-    <input type="button" id="acceso" class="input-button btn-login" value="Acceso rápido">
-</form>
+            <label for="passwordUser">Contraseña</label>
+            <input type="password" name="contrasenia" id="passwordUser" required>
+
+            <input type="submit" class="input-button input-submit btn-login" value="Ingresar">
+            <input type="button" id="acceso" class="input-button btn-login" value="Acceso rápido">
+        </form>
+
+</main>
+
+
 <script>
     let emailUser = document.getElementById("emailUser");
     let passwordUser = document.getElementById("passwordUser");
 
     let acceso_rapido = document.getElementById("acceso");
     acceso_rapido.addEventListener("click", () => {
-        emailUser.value = "test@test.com";
-        passwordUser.value = "test";
+        emailUser.value = "admin@tecnostore.com";
+        passwordUser.value = "12345678";
     });
 </script>
 

@@ -48,6 +48,13 @@ export const getEliminar = (req, res) => {
 export const getLogin = (req, res) => {
     res.render("login", {
         title: "Login",
-        about: "Login-dashboard"
+        about: "Tecno Store"
+    });
+}
+
+export const getCrearUsuario = (req, res) => {
+    res.render("crear_usuario", {
+        title: "Nuevo Usuario",
+        about: "Crear usuario"
     });
 }

@@ -8,7 +8,7 @@ import { requireLogin } from "../middlewares/middlewares.js";
 
 
 //========Importacion de controladores de main==========
-import { getConsultar, getCrear, getEliminar, getIndex, getLogin, getModificar } from "../controllers/views.controllers.js";
+import { getConsultar, getCrear, getCrearUsuario, getEliminar, getIndex, getLogin, getModificar } from "../controllers/views.controllers.js";
 
 
 //========Vistas==========
@@ -23,5 +23,7 @@ router.get("/modificar", requireLogin, getModificar);
 router.get("/eliminar", requireLogin, getEliminar);
 
 router.get("/login", getLogin);
+
+router.get("/crear_usuario", requireLogin, getCrearUsuario);
 
 export default router;

@@ -1,0 +1,22 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/nav.ejs") %>
+
+<main>
+    <h1> <%= about %> </h1>
+
+    <form id="createUser-form" class="products-form">
+        <label for="nombreUser">Nombre</label>
+        <input type="text" name="nombre" id="nombreUser" placeholder="Ej: Sebastian" required>
+
+        <label for="emailUser">Correo Electrónico</label>
+        <input type="email" name="correo" id="emailUser" placeholder="admin@tecnostore.com" required>
+        
+        <label for="passwordUser">Contraseña</label>
+        <input type="password" name="contrasenia" id="passwordUser" placeholder="********" required>
+
+        <input class="input-submit" type="submit" value="Crear Administrador">
+    </form>
+    <hr>
+</main>
+<script src="js/crear_usuario.js"></script>
+<%- include("partials/footer.ejs") %>

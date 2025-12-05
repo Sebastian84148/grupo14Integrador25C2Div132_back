@@ -1,148 +1,349 @@
-/*================
-    General
-================*/
-body {
-    background-color: rgb(81, 81, 112);
+/* =========================================
+                Variables
+   ========================================= */
+:root {
+    --bg-body: #121212;       
+    --bg-panel: #1e1e1e;      
+    --bg-input: #2d2d2d;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border: #444444;
+    
+    --primary: #0d6efd;
+    --primary-hover: #0b5ed7;
+    --danger: #dc3545;
+    --success: #198754;
+    
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --radius: 8px;
 }
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5 {
+    color: var(--text-main);
+    text-align: center;
+    margin-top: 20px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
+}
+
+/* =========================================
+                Navegacion
+   ========================================= */
 header {
-    margin-top: 30px;
+    background-color: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 60px;
 }
 
-header nav {
-    width: 75%;
-}
-
-ul {
-    padding-left: 0;
-    margin-bottom: 0;
-}
-
-li {
-    list-style-type: none;
-}
-
-
-/*================
-    Encabezado
-================*/
 nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
+    gap: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+}
+
+nav a li {
+    display: inline;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+#logout input {
+    background-color: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 5px 15px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+#logout input:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+/* =========================================
+                Main
+   ========================================= */
+main {
+    flex: 1;
+    max-width: 1000px;
+    width: 90%;
+    margin: 20px auto;
+    background-color: var(--bg-panel);
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 
-/*================
-    main
-================*/
+
+.products-form, #login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    font-weight: bold;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.label-radio {
+    text-align: center;
+}
+
+input, select{
+    background-color: var(--bg-input);
+    border: 1px solid var(--border);
+    color: white;
+    padding: 12px;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
+}
+
+.input-submit, .input-button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.input-submit:hover {
+    background-color: var(--primary-hover);
+}
+
+
+
+.drop-zone {
+    border: 2px dashed var(--border);
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    text-align: center;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--primary);
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.drop-text {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.drop-text span {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+#fileInput {
+    display: none; 
+}
+
+#previewContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#imgPreview {
+    max-width: 150px;
+    border-radius: 5px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+    background-color: #fff;
+    padding: 5px;
+}
+
+/* =========================================
+            Index - Consular
+   ========================================= */
+
 #contenedor-productos {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
 }
 
 .card-producto {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid;
-    width: 175px;
-    height: 200px;
-    margin: 5px;
-    font-size: 12px;
+    background-color: var(--bg-body);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px;
+    width: 200px;
     text-align: center;
-    justify-content: space-evenly;
+    transition: transform 0.2s;
 }
 
-#contenedor-productos h5, #contenedor-productos p {
-    margin: 0;
+.card-producto:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
 }
 
 .card-producto img {
-    width: 65px;
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
+.card-producto h5 {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
 
+/* =========================================
+        Consular - Modificar - Eliminar
+   ========================================= */
 #listado-productos {
-    width: 100%;
-    display: flex;
-    font-size: 14px;
-    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .li-listados {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 75%;
+    gap: 20px;
+    margin-bottom: 15px;
 }
 
 .li-listados img {
-    width: 65px;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background-color: white;
+    border-radius: 4px;
+    padding: 2px;
 }
 
-.li-listados p, .li-listados img {
-    margin-bottom: 0;
+.li-listados p {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1.1rem;
 }
 
 .li-botonera {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
+    list-style: none;
+    margin-top: 10px;
+    text-align: right;
 }
 
-.products-form {
-    width: 45%;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+#deleteProduct_button {
+    background-color: var(--danger);
+}
+#deleteProduct_button:hover {
+    background-color: #bb2d3b;
 }
 
-#getProducts-form {
-    height: 110px;
-    width: 35%;
+#updateProduct_button {
+    background-color: #ffc107;
+    color: black;
+    margin-bottom: 15px;
+}
+#updateProduct_button:hover {
+    background-color: #e0a800;
 }
 
-.mensaje-error strong {
-    color: #ae4f4e;
-}
+
 
 .mensaje-error {
-    color: #a94442;
-    background-color: #f2dede;
-    border: 2px solid #ebccd1;
-    padding: 10px 30px;
-    border-radius: 4px;
-    font-size: 16px;
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 15px;
+    border-radius: var(--radius);
+    list-style: none;
 }
 
-/*================
-    Imagenes
-================*/
-.drop-zone {
-        display: block;
-        background-color: #ffffff;
-        border: 2px dashed #94a3b8;
-        border-radius: 1rem;
-        padding: 2rem;
-        text-align: center;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-    .drop-zone:hover, .drop-zone.dragover {
-        border-color: #2563eb;
-        background-color: #f6fbff;
-    }
-    .drop-text span {
-        color: #2563eb;
-        text-decoration: underline;
-        font-weight: bold;
-    }
-    /* Ocultamos el input real para usar el estilo personalizado */
-    #fileInput {
-        display: none; 
-    }
+/* =========================================
+                    Login
+   ========================================= */
+.btn-login {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#acceso {
+    background-color: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text-muted);
+}
+#acceso:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.error-message {
+    background-color: var(--danger);
+    color: white;
+    padding: 10px;
+    border-radius: var(--radius);
+    text-align: center;
+    margin-bottom: 20px;
+}

@@ -24,7 +24,7 @@ const fileName = document.getElementById('fileName');
 dropArea.addEventListener('drop', e => {
     const files = e.dataTransfer.files;
     if (files.length) {
-        fileInput.files = files; // Asignamos el archivo al input invisible
+        fileInput.files = files;
         mostrarPrevisualizacion(files[0]);
     }
 });
@@ -36,7 +36,7 @@ fileInput.addEventListener('change', () => {
 });
 
 function mostrarPrevisualizacion(file) {
-    previewContainer.style.display = 'block';
+    previewContainer.removeAttribute('hidden');
     fileName.textContent = `Archivo: ${file.name}`;
     imgPreview.src = URL.createObjectURL(file);
 }

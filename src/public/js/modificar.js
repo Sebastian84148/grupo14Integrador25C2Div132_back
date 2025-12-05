@@ -39,7 +39,7 @@ function mostrarProducto(producto) {
             <p>Id: ${producto.id} | Nombre: ${producto.nombre} | <strong>Precio: $${producto.precio}</strong><p>
         </li>
         <li class="li-botonera">
-            <input type="button" id="updateProduct_button" value="Actualizar producto">
+            <input class="input-button" type="button" id="updateProduct_button" value="Actualizar producto">
         </li>
     `;
 
@@ -82,18 +82,18 @@ function crearFormularioPut(event, producto) {
                 <input type="file" id="fileInput" name="imagen" accept="image/*">
             </label>
 
-            <div id="previewContainer" style="margin-top:10px;">
+            <div id="previewContainer">
                 <p id="fileName">Archivo seleccionado</p>
-                <img id="imgPreview" src="/img/${producto.img_url}" style="max-width: 150px; border-radius: 5px;">
+                <img id="imgPreview" src="/img/${producto.img_url}">
             </div>
 
-            <label for="activoSi">Activo (Dar de Alta)</label>
+            <label class="label-radio" for="activoSi">Activo (Dar de Alta)</label>
             <input type="radio" name="activo" id="activoSi" value="1" ${checkedActivo} required>
 
-            <label for="activoNo">Inactivo (Dar de Baja)</label>
+            <label class="label-radio" for="activoNo">Inactivo (Dar de Baja)</label>
             <input type="radio" name="activo" id="activoNo" value="0" ${checkedInactivo} required>
 
-            <input type="submit" value="Actualizar Producto">
+            <input class="input-submit" type="submit" value="Actualizar Producto">
         </form>
     `;
 
@@ -115,14 +115,14 @@ function crearFormularioPut(event, producto) {
     ['dragenter', 'dragover'].forEach(eventName => {
         dropArea.addEventListener(eventName, e => {
             e.preventDefault();
-            dropArea.style.backgroundColor = '#eef'; // Color al arrastrar
+            dropArea.classList.add('dragover');
         });
     });
 
     ['dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, e => {
             e.preventDefault();
-            dropArea.style.backgroundColor = '#fff'; // Restaurar color
+            dropArea.classList.remove('dragover');
         });
     });
 

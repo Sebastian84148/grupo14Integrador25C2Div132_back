@@ -14,11 +14,10 @@ export const createSale = async (req, res) => {
         }
 
         const [rows] = await insertSale(fecha, nombre_usuario, total, productos);
-
         const ventaId = rows.insertId;
 
-        for(const productId of productos) {
-            await insertSaleDetail(ventaId, productId);
+        for(const prod of productos) {
+            await insertSaleDetail(ventaId, prod.id, prod.cantidad);
         }
 
         res.status(201).json({
